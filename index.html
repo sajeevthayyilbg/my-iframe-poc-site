@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iframe Page</title>
+</head>
+<body>
+    <h2>This is the iframe page</h2>
+
+    <button onclick="sendHello()">Send Hello Message</button>
+    <button onclick="sendCompleteMoveOut()">Send Complete Move Out</button>
+
+    <script>
+        function postMessageToLWC(type, payload) {
+            const message = { type, payload };
+            window.parent.postMessage(message, '*');
+            console.log('iframe: Sent message to parent:', message);
+        }
+
+        function sendHello() {
+            postMessageToLWC('HELLO', {
+                message: 'Hello from the iframe!',
+                status: 'success',
+                ensekAccountNumber: 'EN12345678'
+            });
+        }
+
+        function sendCompleteMoveOut() {
+            postMessageToLWC('COMPLETE_MOVE_OUT', {
+                status: 'success',
+                ensekAccountNumber: 'EN12345678',
+                message: 'Move-out process completed successfully.'
+            });
+        }
+    </script>
+</body>
+</html>
